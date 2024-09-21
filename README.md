@@ -1,36 +1,83 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# React Feature Tour Component
 
-## Getting Started
+## Introduction
 
-First, run the development server:
+Many applications struggle with effective user onboarding and feature discovery. Static tutorials or extensive documentation often fail to engage users, leading to poor feature adoption.
+Touria is a customizable, interactive guide designed to introduce users to key features of your web application. Built with React and TypeScript, it creates an engaging onboarding experience by guiding users through your app's functionality step-by-step.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+- Providing an interactive, guided tour of your application's key features
+- Highlighting specific elements on the page to draw user attention
+- Offering a step-by-step approach that doesn't overwhelm users
+- Allowing users to explore the application while learning about its features
+
+## Features
+
+1. **Interactive Popup**: A sleek, animated popup that moves through your webpage, explaining features.
+2. **Progress Tracking**: Shows users their current position in the tour (e.g., "Step 2 of 5").
+3. **Customizable Styles**: Easy styling customization to match your application's design.
+4. **Keyboard Navigation**: Supports navigation using arrow keys and closing with the Escape key.
+5. **Element Highlighting**: Draws attention to the current feature with an overlay effect.
+6. **Responsive Positioning**: Adjusts the popup's position to ensure visibility on all screen sizes.
+7. **Progress Persistence**: Saves the user's progress, allowing them to resume the tour later.
+8. **Accessibility**: Designed with accessibility in mind, ensuring all users can benefit from the tour.
+
+## Use Case Example
+
+Here's how you can implement touria in a React application:
+
+``` shell `
+  npx touria init
+ ``
+
+```tsx
+import React, { useState } from "react";
+import FeatureTour from "./FeatureTour";
+
+const App: React.FC = () => {
+  const [showTour, setShowTour] = useState(true);
+
+  const tourSteps = [
+    {
+      selector: "#dashboard",
+      title: "Dashboard Overview",
+      content:
+        "Welcome to your personalized dashboard. Here you can see all your key metrics at a glance.",
+    },
+    {
+      selector: "#data-visualization",
+      title: "Data Visualization",
+      content:
+        "This chart shows your performance trends over time. Click on any data point for more details.",
+    },
+    {
+      selector: "#quick-actions",
+      title: "Quick Actions",
+      content:
+        "Use these buttons to quickly add new entries, generate reports, or adjust your settings.",
+    },
+  ];
+
+  return (
+    <div>
+      <header>My Awesome App</header>
+      <main>
+        <section id="dashboard">{/* Dashboard content */}</section>
+        <section id="data-visualization">
+          {/* Data visualization content */}
+        </section>
+        <section id="quick-actions">{/* Quick action buttons */}</section>
+      </main>
+      {showTour && (
+        <FeatureTour
+          steps={tourSteps}
+          onComplete={() => setShowTour(false)}
+          customStyles={{ backgroundColor: "#f0f4f8" }}
+          persistKey="my-app-onboarding-tour"
+        />
+      )}
+    </div>
+  );
+};
+
+export default App;
 ```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
